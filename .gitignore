@@ -32,3 +32,11 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+.env.local
+.env
+agent-transcripts
+mcps
+terminals
+node_modules
+.next
