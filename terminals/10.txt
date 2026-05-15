@@ -1,0 +1,11 @@
+---
+pid: 66686
+cwd: /Users/sapinasamat/.cursor/projects/empty-window
+last_command: open .env.local
+last_exit_code: 1
+---
+sapinasamat@Sapinas-MacBook-Air ~ % cd /Users/sapinasamat/.cursor/projects/empty-window
+sapinasamat@Sapinas-MacBook-Air empty-window % cp .env.example .env.loca 
+sapinasamat@Sapinas-MacBook-Air empty-window % open .env.local
+No application knows how to open URL file:///Users/sapinasamat/.cursor/projects/empty-window/.env.local (Error Domain=NSOSStatusErrorDomain Code=-10814 "kLSApplicationNotFoundErr: E.g. no application claims the file" UserInfo={_LSLine=1796, _LSFunction=runEvaluator}).
+sapinasamat@Sapinas-MacBook-Air empty-window %
