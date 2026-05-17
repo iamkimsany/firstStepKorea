@@ -15,14 +15,14 @@ export function QuestionCard({
     <section className="page-enter" aria-labelledby="question-title">
       <h1
         id="question-title"
-        className="text-xl font-bold leading-snug text-ink"
+        className="heading-display text-[1.9rem] text-black"
       >
-        {title}
+        {title}.
       </h1>
       {subtitle ? (
-        <p className="mt-2 text-sm text-muted">{subtitle}</p>
+        <p className="mt-3 text-sm font-medium text-muted">{subtitle}</p>
       ) : null}
-      <div className="mt-6 space-y-3">{children}</div>
+      <div className="mt-7 space-y-3">{children}</div>
     </section>
   );
 }

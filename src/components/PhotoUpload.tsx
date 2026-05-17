@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { Camera } from "lucide-react";
 
 export function PhotoUpload({
   onPick,
@@ -17,9 +18,7 @@ export function PhotoUpload({
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result;
-      if (typeof result === "string") {
-        onPick(file, result);
-      }
+      if (typeof result === "string") onPick(file, result);
     };
     reader.readAsDataURL(file);
     e.target.value = "";
@@ -31,7 +30,6 @@ export function PhotoUpload({
         ref={inputRef}
         type="file"
         accept="image/*"
-        capture="environment"
         className="hidden"
         onChange={handleChange}
       />
@@ -39,10 +37,11 @@ export function PhotoUpload({
         type="button"
         disabled={disabled}
         onClick={() => inputRef.current?.click()}
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-btn border border-border bg-white text-lg shadow-sm transition hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex h-11 w-11 shrink-0 items-center justify-center border-2 border-black bg-white transition disabled:cursor-not-allowed disabled:opacity-40"
+        style={{ boxShadow: "2px 2px 0 #0A0A0A" }}
         aria-label="Upload photo"
       >
-        📷
+        <Camera size={18} />
       </button>
     </>
   );

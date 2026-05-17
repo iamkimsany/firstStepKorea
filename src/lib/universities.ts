@@ -10,6 +10,21 @@ export const UNIVERSITY_LABELS: Record<University, string> = {
   Other: "Other university",
 };
 
+export const UNIVERSITY_LOGOS: Record<University, string | null> = {
+  Sookmyung: "/logos/sookmyung.svg.png",
+  Yonsei:    "/logos/yonsei.png",
+  Korea:     "/logos/koreanu.png",
+  Hanyang:   "/logos/hanyang.png",
+  Ewha:      "/logos/ewha.png",
+  SNU:       "/logos/snu.png",
+  Other:     null,
+};
+
+export function getUniversityLogo(u: University | null): string | null {
+  if (!u) return null;
+  return UNIVERSITY_LOGOS[u];
+}
+
 export function getUniversityLabel(u: University | null): string | null {
   if (!u) return null;
   return UNIVERSITY_LABELS[u];

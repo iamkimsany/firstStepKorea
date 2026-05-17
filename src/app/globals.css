@@ -2,42 +2,207 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ══════════════════════════════════════════
+   NEO-BRUTALISM — B&W + Sharpie Yellow
+   Thick black borders · hard offset shadows · zero radius
+   ══════════════════════════════════════════ */
+
 :root {
   color-scheme: light;
+
+  --yellow:        #FAC800;
+  --yellow-light:  #FFF4A3;
+  --black:         #0A0A0A;
+  --white:         #FFFFFF;
+  --canvas:        #FAFAFA;
+  --muted:         #555555;
+  --border:        2px solid #0A0A0A;
+  --shadow-card:   4px 4px 0 #0A0A0A;
+  --shadow-btn:    4px 4px 0 #0A0A0A;
+  --shadow-sm:     2px 2px 0 #0A0A0A;
 }
 
-html,
+html, body { height: 100%; }
+
 body {
-  height: 100%;
+  background-color: var(--white);
+  color: var(--black);
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 600;
+  @apply antialiased;
 }
 
-body {
-  @apply bg-surface text-ink antialiased;
-}
-
+/* ── Page enter ─────────────────────────── */
 .page-enter {
-  animation: fs-fade-slide 0.38s ease-out both;
+  animation: nb-rise 0.22s ease-out both;
+}
+@keyframes nb-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fs-fade-slide {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ── Neo card ───────────────────────────── */
+.neo-card {
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-card);
+}
+.neo-card-sm {
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-sm);
 }
 
-.safe-bottom {
-  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+/* ── Kicker label ───────────────────────── */
+.neo-label {
+  display: inline-block;
+  background: var(--yellow);
+  border: 1.5px solid var(--black);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  line-height: 1.4;
+}
+/* outlined variant — white bg */
+.neo-label-outline {
+  display: inline-block;
+  background: var(--white);
+  border: 1.5px solid var(--black);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  line-height: 1.4;
 }
 
+/* ── Primary CTA — Yellow fill ──────────── */
+.btn-primary {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-btn);
+  padding: 14px 24px;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--black);
+  transition: box-shadow 0.08s ease, transform 0.08s ease;
+}
+.btn-primary:hover  { box-shadow: 6px 6px 0 var(--black); }
+.btn-primary:active {
+  box-shadow: 1px 1px 0 var(--black);
+  transform: translate(3px, 3px);
+}
+
+/* ── Outline CTA — White fill ───────────── */
+.btn-outline {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 16px;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--black);
+  transition: box-shadow 0.08s ease, transform 0.08s ease, background 0.08s ease;
+}
+.btn-outline:hover  {
+  background: var(--yellow-light);
+  box-shadow: 4px 4px 0 var(--black);
+}
+.btn-outline:active {
+  box-shadow: 1px 1px 0 var(--black);
+  transform: translate(1px, 1px);
+}
+
+/* ── Neo input ──────────────────────────── */
+.neo-input {
+  background: var(--white);
+  border: 2px solid var(--black);
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--black);
+  width: 100%;
+  outline: none;
+  transition: box-shadow 0.08s ease;
+}
+.neo-input:focus {
+  box-shadow: var(--shadow-sm);
+}
+.neo-input::placeholder { color: #999; }
+
+/* ── Numbered step ──────────────────────── */
+.step-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--black);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.step-box.active {
+  background: var(--yellow);
+}
+
+/* ── Horizontal chip scroll ─────────────── */
 .chips-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.chips-scroll::-webkit-scrollbar {
-  display: none;
+.chips-scroll::-webkit-scrollbar { display: none; }
+
+/* ── Safe area ──────────────────────────── */
+.safe-bottom {
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 }
+
+/* ── Dot progress (kept for onboarding) ─── */
+.dot-progress { display: flex; align-items: center; gap: 6px; }
+.dot-progress .dot {
+  height: 6px; width: 6px;
+  border: 1.5px solid var(--black);
+  background: var(--white);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+.dot-progress .dot.active {
+  width: 20px;
+  background: var(--yellow);
+}
+
+/* ── Heading utility — League Spartan Black ─ */
+.heading-display {
+  font-family: 'League Spartan', system-ui, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+/* legacy alias */
+.heading-serif {
+  font-family: 'League Spartan', system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+/* ── Glass nav (no-op in neo) ───────────── */
+.glass-nav { background: var(--white); }

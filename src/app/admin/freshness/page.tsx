@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { AlertCircle, AlertTriangle, CheckCircle, Clock, TriangleAlert } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { SOOKMYUNG_RESOURCES } from "@/lib/campus-resources";
 import type { FreshnessRecord } from "@/types";
@@ -10,6 +11,13 @@ import {
   getFreshnessLabel,
   resetAllFreshnessToToday,
 } from "@/lib/freshness";
+
+const FRESHNESS_ICONS = { CheckCircle, Clock, AlertTriangle, AlertCircle } as const;
+
+function FreshnessIcon({ iconName, color }: { iconName: keyof typeof FRESHNESS_ICONS; color: string }) {
+  const Icon = FRESHNESS_ICONS[iconName];
+  return <Icon size={12} style={{ color }} aria-hidden />;
+}
 
 function displayItemLabel(itemId: string): string {
   const campus = SOOKMYUNG_RESOURCES.find((r) => r.id === itemId);
@@ -115,19 +123,21 @@ export default function FreshnessAdminPage() {
                       {record.verifiedCount}
                     </td>
                     <td className="max-w-[120px] px-2 py-2 align-top">
-                      <span style={{ color: labelMeta.color }}>
-                        {labelMeta.emoji} {labelMeta.label}
+                      <span className="flex items-center gap-1" style={{ color: labelMeta.color }}>
+                        <FreshnessIcon iconName={labelMeta.iconName} color={labelMeta.color} />
+                        {labelMeta.label}
                       </span>
                       {record.reportedOutdated ? (
-                        <span className="mt-1 inline-flex rounded bg-warning/25 px-1.5 py-0.5 text-[10px] font-bold text-warning">
-                          ⚠️ Flagged
+                        <span className="mt-1 inline-flex items-center gap-1 rounded bg-warning/25 px-1.5 py-0.5 text-[10px] font-bold text-warning">
+                          <TriangleAlert size={9} aria-hidden /> Flagged
                         </span>
                       ) : null}
                     </td>
                     <td className="max-w-[160px] px-2 py-2 align-top text-muted">
                       {record.reportNote ? (
-                        <span className="text-error">
-                          ⚠️ {record.reportNote}
+                        <span className="flex items-start gap-1 text-error">
+                          <TriangleAlert size={10} className="mt-px shrink-0" aria-hidden />
+                          {record.reportNote}
                         </span>
                       ) : (
                         "—"

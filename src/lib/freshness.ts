@@ -135,38 +135,23 @@ export function getDaysOld(isoDate: string): number {
 export function getFreshnessLabel(itemId: string): {
   label: string;
   color: string;
-  emoji: string;
+  /** Lucide icon name to render in the UI — consumers import the icon component by this key. */
+  iconName: "CheckCircle" | "Clock" | "AlertTriangle" | "AlertCircle";
 } {
   const record = getFreshness(itemId);
   const days =
     record === null ? 9999 : getDaysOld(record.lastVerified);
 
   if (days <= 14) {
-    return {
-      label: "Verified recently",
-      color: "#1D9E75",
-      emoji: "✅",
-    };
+    return { label: "Verified recently",       color: "#1D9E75", iconName: "CheckCircle"   };
   }
   if (days <= 30) {
-    return {
-      label: "Verified this month",
-      color: "#D97706",
-      emoji: "🟡",
-    };
+    return { label: "Verified this month",     color: "#D97706", iconName: "Clock"         };
   }
   if (days <= 60) {
-    return {
-      label: "Verify if still accurate",
-      color: "#D97706",
-      emoji: "⚠️",
-    };
+    return { label: "Verify if still accurate",color: "#D97706", iconName: "AlertTriangle" };
   }
-  return {
-    label: "Needs verification",
-    color: "#D85A30",
-    emoji: "🔴",
-  };
+  return   { label: "Needs verification",      color: "#D85A30", iconName: "AlertCircle"   };
 }
 
 export function resetAllFreshnessToToday(): void {

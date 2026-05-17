@@ -7,51 +7,64 @@ import { markVerified, reportOutdated } from "@/lib/freshness";
 export function ChecklistItem({
   item,
   onToggle,
+  urgentLabel = "Urgent",
 }: {
   item: ChecklistItemType;
   onToggle: (id: string, completed: boolean) => void;
+  urgentLabel?: string;
 }) {
   const checkboxId = `chk-${item.id}`;
 
   return (
-    <div
-      className={`rounded-card border border-border bg-white shadow-sm transition hover:border-primary/30 ${
-        item.urgent ? "ring-1 ring-warning/40" : ""
-      }`}
-    >
-      <div className="flex gap-3 p-4">
-        <input
-          id={checkboxId}
-          type="checkbox"
-          className="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-border text-primary focus:ring-primary"
-          checked={item.completed}
-          onChange={(e) => onToggle(item.id, e.target.checked)}
-        />
-        <label htmlFor={checkboxId} className="min-w-0 flex-1 cursor-pointer">
-          <span className="flex flex-wrap items-center gap-2">
+    <div className="neo-card transition">
+      <div className="flex gap-4 p-4">
+        {/* square checkbox */}
+        <div className="mt-0.5 shrink-0">
+          <input
+            id={checkboxId}
+            type="checkbox"
+            className="sr-only"
+            checked={item.completed}
+            onChange={(e) => onToggle(item.id, e.target.checked)}
+          />
+          <label
+            htmlFor={checkboxId}
+            className="flex h-6 w-6 cursor-pointer items-center justify-center border-2 border-black transition"
+            style={item.completed ? { background: "var(--yellow)" } : { background: "white" }}
+            aria-label={item.completed ? "Unmark complete" : "Mark complete"}
+          >
+            {item.completed ? (
+              <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden>
+                <path d="M1 5l3.5 3.5L11 1" stroke="black" strokeWidth="2.2" strokeLinecap="square" strokeLinejoin="miter" />
+              </svg>
+            ) : null}
+          </label>
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
             <span
-              className={`font-semibold text-ink ${
-                item.completed ? "line-through opacity-60" : ""
+              className={`text-sm font-bold uppercase tracking-tight text-black ${
+                item.completed ? "line-through opacity-40" : ""
               }`}
             >
               {item.text}
             </span>
-            {item.urgent ? (
-              <span className="rounded-chip bg-warning/15 px-2 py-0.5 text-xs font-semibold text-warning">
-                Urgent
-              </span>
+            {item.urgent && !item.completed ? (
+              <span className="neo-label text-[9px]">{urgentLabel}</span>
             ) : null}
-          </span>
-          <span
-            className={`mt-1 block text-sm text-muted ${
-              item.completed ? "line-through opacity-60" : ""
+          </div>
+          <p
+            className={`mt-1.5 text-xs font-medium leading-relaxed text-muted ${
+              item.completed ? "line-through opacity-40" : ""
             }`}
           >
             {item.detail}
-          </span>
-        </label>
+          </p>
+        </div>
       </div>
-      <div className="px-4 pb-3">
+
+      <div className="border-t-2 border-black px-4 py-2.5">
         <FreshnessBadge
           itemId={item.id}
           onVerify={() => markVerified(item.id)}

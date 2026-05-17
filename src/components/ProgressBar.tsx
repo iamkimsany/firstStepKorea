@@ -7,21 +7,31 @@ export function ProgressBar({
   current: number;
   total: number;
 }) {
-  const pct = Math.min(100, Math.round((current / total) * 100));
   return (
-    <div className="w-full px-1">
-      <div className="mb-2 flex items-center justify-between text-xs text-muted">
-        <span className="font-medium text-ink">
-          Step {current} of {total}
-        </span>
-        <span>{pct}%</span>
-      </div>
-      <div className="h-2 w-full overflow-hidden rounded-full bg-primary-light">
-        <div
-          className="h-full rounded-full bg-primary transition-all duration-500 ease-out"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
+    <div className="flex items-center gap-2" aria-label={`Step ${current} of ${total}`}>
+      {Array.from({ length: total }).map((_, i) => {
+        const done    = i + 1 < current;
+        const active  = i + 1 === current;
+        return (
+          <div
+            key={i}
+            className="step-box"
+            style={
+              active ? { background: "var(--yellow)" }
+              : done  ? { background: "var(--black)", color: "white" }
+              :          {}
+            }
+            aria-hidden
+          >
+            {String(i + 1).padStart(2, "0")}
+          </div>
+        );
+      })}
+      {/* connector line */}
+      <span className="flex-1 border-t-2 border-black" aria-hidden />
+      <span className="text-[11px] font-bold uppercase tracking-widest text-muted">
+        {current}/{total}
+      </span>
     </div>
   );
 }

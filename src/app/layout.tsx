@@ -1,12 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "FirstStep Korea",
@@ -25,11 +19,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="font-sans">
-        <div className="mx-auto min-h-dvh w-full max-w-mobile shadow-[0_0_0_1px_rgba(0,0,0,0.04)]">
-          {children}
-        </div>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&family=Montserrat:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <Providers>
+          <div className="mx-auto min-h-dvh w-full max-w-mobile border-x-2 border-black">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
